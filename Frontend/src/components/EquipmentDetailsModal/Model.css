@@ -1,0 +1,75 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalContainer {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+}
+
+.modalLogo {
+    position: absolute;
+    right: 16px;
+    top: 5px;
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.equipmentGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.equipmentItem {
+    background-color: #E4EDF1;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.equipmentItem b {
+    color: #333;
+    font-weight: bold;
+}
+
+.button {
+    background-color: #61A63E;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px; /* Space above the button */
+    margin-left: 700px; /* Space from the left edge */
+    width: fit-content; /* Optional: adjust width to fit content */
+ 
+    
+}
+
+h1 {
+    text-align: center;
+    color: #14447B;
+    font-size: 24px;
+    margin-bottom: 20px;
+}

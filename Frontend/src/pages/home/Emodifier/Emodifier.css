@@ -1,0 +1,54 @@
+.new {
+    display: flex;
+    width: 100%;
+}
+
+.newContainer {
+    flex: 6;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.top h1 {
+    color: #84A5C4;
+    font-size: 2rem;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+}
+
+.right {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    
+}
+  
+
+.error {
+    color: red;
+}
+.success{
+    color: green;
+}

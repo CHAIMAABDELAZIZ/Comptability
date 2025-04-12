@@ -1,0 +1,208 @@
+import React, { useState, useEffect } from 'react';
+import { FormControl, InputLabel, Input, Button, Grid } from '@mui/material';
+import Csidemenu from "../../../components/Csidemenu";
+import Cnavbar from "../../../components/Cnavbar";
+import './Enew.css';
+import axios from 'axios';
+
+const Enew = () => {
+    const [username, setUsername] = useState('');
+    const [cashflows, setCashflows] = useState([]);
+    const [date_debut, setDateDebut] = useState('');
+    const [description, setDescription] = useState('');
+    const [duree, setDuree] = useState('');
+    const [investissement, setInvestissement] = useState('');
+    const [nom_projet, setNomProjet] = useState('');
+    const [taux_actualisation, setTauxActualisation] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            setError('Utilisateur non authentifié.');
+            return;
+        }
+
+        const fetchUsername = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/${userId}`);
+                setUsername(response.data.username);
+            } catch (err) {
+                setError('Erreur lors de la récupération du nom d’utilisateur.');
+            }
+        };
+
+        fetchUsername();
+    }, []);
+
+    const handleCashflowChange = (index, value) => {
+        const updatedCashflows = [...cashflows];
+        updatedCashflows[index] = value;
+        setCashflows(updatedCashflows);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const material = {
+            username,
+            cashflows,
+            date_debut,
+            description,
+            duree,
+            investissement,
+            nom_projet,
+            taux_actualisation,
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8000/equipements/', material);
+
+            if (response.status === 200) {
+                setSuccess('Matériel ajouté avec succès');
+                setError('');
+            } else {
+                setSuccess('Matériel ajouté avec succès');
+                setSuccess('');
+            }
+        } catch (error) {
+            setError('Une erreur est survenue. Veuillez réessayer.');
+        }
+    };
+
+    return (
+        <div className="new">
+            <Csidemenu />
+            <div className="newContainer">
+                <Cnavbar />
+                <div className="top">
+                    <h1 style={{ color: '#84A5C4' }}>AJOUTER UN NOUVEAU MATÉRIEL</h1>
+                </div>
+                <div className="bottom">
+                    <div className="right">
+                        <form onSubmit={handleSubmit}>
+                            <Grid container spacing={4.5}>
+                                {/* Champ pour username */}
+                                <Grid item xs={12} sm={6} required>
+                                    <FormControl fullWidth disabled>
+                                        <InputLabel htmlFor="username">Nom d'utilisateur</InputLabel>
+                                        <Input id="username" value={username} placeholder="Nom d'utilisateur" />
+                                    </FormControl>
+                                </Grid>
+
+                                {/* Champ pour date_debut */}
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="date_debut">Date de début</InputLabel>
+                                        <Input
+                                            id="date_debut"
+                                            type="date"
+                                            value={date_debut}
+                                            onChange={(e) => setDateDebut(e.target.value)}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                {/* Champ pour description */}
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="description">Description</InputLabel>
+                                        <Input
+                                            id="description"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            placeholder="Description"
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+
+
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="duree">Durée</InputLabel>
+                                        <Input
+                                            id="duree"
+                                            value={duree}
+                                            onChange={(e) => setDuree(e.target.value)}
+                                            placeholder="Durée"
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="investissement">Investissement</InputLabel>
+                                        <Input
+                                            id="investissement"
+                                            value={investissement}
+                                            onChange={(e) => setInvestissement(e.target.value)}
+                                            placeholder="Investissement"
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="taux_actualisation">Taux d'actualisation</InputLabel>
+                                        <Input
+                                            id="taux_actualisation"
+                                            value={taux_actualisation}
+                                            onChange={(e) => setTauxActualisation(e.target.value)}
+                                            placeholder="Taux d'actualisation"
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                           
+
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel htmlFor="nom_projet">Nom du projet</InputLabel>
+                                        <Input
+                                            id="nom_projet"
+                                            value={nom_projet}
+                                            onChange={(e) => setNomProjet(e.target.value)}
+                                            placeholder="Nom du projet"
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                {/* Champs pour entrer les cashflows en fonction de la durée */}
+                                {Array.from({ length: parseInt(duree) }).map((_, index) => (
+                                    <Grid item xs={12} sm={6} key={index}>
+                                        <FormControl fullWidth required>
+                                            <InputLabel htmlFor={`cashflow-${index}`}>Cashflow {index + 1}</InputLabel>
+                                            <Input
+                                                id={`cashflow-${index}`}
+                                                value={cashflows[index] || ''}
+                                                onChange={(e) => handleCashflowChange(index, e.target.value)}
+                                                placeholder={`Cashflow ${index + 1}`}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+                                ))}
+
+                                {/* Bouton de soumission */}
+                                <Grid container justifyContent="flex-end">
+                                    <Grid item>
+                                        <Button variant="contained" type="submit" style={{ backgroundColor: '#4caf50', color: '#fff' }}>
+                                            Ajouter
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            {error && <p className="error">{error}</p>}
+                            {success && <p className="success">{success}</p>}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Enew;

@@ -1,0 +1,11 @@
+.datatable .datatableTitle .addicon {
+    display: flex;                /* Use flexbox for alignment */
+    align-items: center;         /* Center items vertically */
+    gap: 5px;                    /* Space between icon and text */
+}
+
+.datatable .datatableTitle .addicon span {
+    color: green;                /* Ensure the text color is the same */
+    font-size: 16px;
+    font-weight: 400;
+}

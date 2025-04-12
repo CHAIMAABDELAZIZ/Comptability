@@ -1,0 +1,65 @@
+.login {
+    height: 100vh;
+    background-color: #1F3E6A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .card {
+        display: flex;
+        background-color: white;
+        width: 50%;
+        border-radius: 10px;
+        min-height: 600px;
+        overflow: hidden;
+
+        .left {
+            flex: 1;
+            background: linear-gradient(#1f235bca, #a7beae46), url("../../assets/images/login.png") center;
+            background-size: cover;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            color: white;
+        }
+
+        .right {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            gap: 50px;
+
+            h1 {
+                color: rgb(96, 96, 96);
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+
+                input {
+                    border: none;
+                    border-bottom: 1px solid lightgray;
+                    padding: 20px 10px;
+                }
+
+                button {
+                    width: 50%;
+                    border-radius: 10px;
+                    padding: 10px;
+                    border: none;
+                    color: white;
+                    background-color: #1f235bda;
+                    font-weight: bold;
+                    cursor: pointer;
+                    align-self: center;
+                }
+            }
+        }
+    }
+}

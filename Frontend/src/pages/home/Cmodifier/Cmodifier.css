@@ -1,0 +1,29 @@
+.new {
+    display: flex;
+    width: 100%;
+}
+
+.newContainer {
+    flex: 6;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.top h1 {
+    color: #84A5C4;
+    font-size: 2rem;
+}
+
+.bottom {
+    display: flex;
+    justify-content: center;
+}
+
+.right {
+    flex: 1; /* Adjust as needed */
+}

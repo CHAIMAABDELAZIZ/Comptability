@@ -1,0 +1,108 @@
+.sidemenu {
+    flex: 1;
+    border-right: 0.5px solid rgb(230, 227, 227);
+    min-height: 100vh;
+    background-color: #E4EDF1;
+    
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    flex: 0 0 250px;
+}
+
+.sidemenu .top {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.sidemenu hr {
+    height: 0;
+    border: 0.5px solid rgb(230, 227, 227);
+}
+
+.sidemenu .center {
+    padding-left: 10px;
+}
+
+.sidemenu .center ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidemenu .center ul .title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #84A5C4;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sidemenu .center ul li {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.sidemenu .center ul li:hover {
+    background-color:#fff;
+    border-top-left-radius:20px ;
+    border-bottom-left-radius:20px ;
+    /*border-top-right-radius:20px ;
+    border-bottom-right-radius:20px ;*/
+}
+
+.sidemenu .center ul li .icon {
+    position: relative;
+    display: block;
+    min-width: 55px;
+    height: 30px;
+    line-height: 3Opx;
+    text-align: center;
+    font-size: 1.5em;
+    color: #546981;
+}
+
+.sidemenu .center ul li span {
+    position: relative;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    white-space: normal;
+
+    /*font-size: 20px;
+    font-weight: 600;*/
+    color: #14447B;
+    
+}
+
+.sidemenu .bottom {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.sidemenu .bottom .colorOption {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #7451f8;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.sidemenu .bottom .colorOption:nth-child(1) {
+    background-color: whitesmoke;
+}
+
+.sidemenu .bottom .colorOption:nth-child(2) {
+    background-color: #333;
+}
+
+.sidemenu .bottom .colorOption:nth-child(3) {
+    background-color: darkblue;
+}
