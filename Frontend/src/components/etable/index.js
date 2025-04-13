@@ -5,6 +5,8 @@ import axios from 'axios';
 import './etable.css'
 import EquipmentDetailsModal from '../EquipmentDetailsModal/Model';
 import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
+
 
 const equipColumns = [
   { field: "id", headerName: "ID", width: 70 },
@@ -20,6 +22,8 @@ const Etable = () => {
   const [userRole, setUserRole] = useState('');
   const [openModal, setOpenModal] = useState(false);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
+
+  const navigate = useNavigate();
 
   // Fetch current username and role from local storage or backend
   useEffect(() => {
@@ -57,9 +61,12 @@ const Etable = () => {
 
 
   const handleSeeMore = (equipment) => {
-    setSelectedEquipment(equipment);
-    setOpenModal(true);
+    // setSelectedEquipment(equipment);
+    // setOpenModal(true);
+    navigate('/result', { state: { projetId: equipment.id } });
   };
+ 
+  
 
   // Delete function
   const handleDelete = async (id) => {

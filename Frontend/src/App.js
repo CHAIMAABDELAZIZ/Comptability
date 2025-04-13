@@ -8,6 +8,7 @@ import Cmodifier from './pages/home/Cmodifier/Cmodifier';
 import Elist from './pages/home/Eliste/Elist';
 import Enew from './pages/home/Enew/Enew';
 import Emodifier from './pages/home/Emodifier/Emodifier';
+import ResultInvest from './pages/resultInvest/resultInvest';
 
 import NewIntervention from './pages/addintervention';
 import Interventionlist from './pages/home/interventionlist';
@@ -25,7 +26,7 @@ function App() {
         <Route path="/home" element={<Chome />} />
         <Route path="/interventionform" element={<NewIntervention  />} />
         <Route path="/adposts" element={<CList />} />
-        <Route path="/equip" element={<Elist />} />
+        <Route path="/equip" element={<Elist />} /> 
         <Route path="/equip/Emodifier/:id" element={<Emodifier />} />
         <Route path="/equipments/new" element={<Enew />} />
         <Route path="/adposts/Cnew" element={<Cnew />} />
@@ -34,6 +35,7 @@ function App() {
         <Route path="/intervention/details/:id" element={<GetIntervention/>} />
         <Route path="/change-password" element={<Cpassword />} />
         
+        <Route path="/result" element={<ResultInvest />} />
       </Routes>
     </Router>
   );
