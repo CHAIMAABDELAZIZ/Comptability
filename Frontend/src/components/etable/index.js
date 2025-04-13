@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Link } from "react-router-dom";
 import axios from 'axios';
 import './etable.css'
 import EquipmentDetailsModal from '../EquipmentDetailsModal/Model';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from "react-router-dom";
+
 
 const equipColumns = [
   { field: "id", headerName: "ID", width: 70 },

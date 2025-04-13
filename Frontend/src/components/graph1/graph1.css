@@ -1,0 +1,62 @@
+/* Featured.css */
+
+/* Style du conteneur principal */
+.featured {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Section top */
+.featured .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.featured .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+.featured .top .MuiSvgIcon-root {
+    cursor: pointer;
+    color: #888;
+}
+
+/* Section bottom - graphique */
+.featured .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Zone du graphique */
+.featuredChart {
+    width: 100%;
+    height: 300px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive container pour s'adapter à différentes tailles d'écran */
+@media (max-width: 768px) {
+    .featured .top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .featuredChart {
+        height: 250px;
+    }
+}

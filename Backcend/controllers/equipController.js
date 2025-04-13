@@ -12,8 +12,8 @@ export const fetchAllEquipments= async (req, res) => {
 
         res.json(materials);
     } catch (error) {
-        console.error('Erreur lors de la récupération des utilisateurs:', error);
-        res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs", error });
+        console.error("Erreur lors de la récupération des projets :", error);
+        res.status(500).json({ message: "Erreur serveur" });
     }
 };
 

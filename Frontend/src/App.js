@@ -15,6 +15,7 @@ import Login from './pages/login/login';
 import GetIntervention from './pages/getintervention';
 import ChangePassword from './pages/changepassword/changepassword';
 import Cpassword from './pages/passwordpage/Cpassword';
+import ResultInvest from './pages/resultInvest/resultInvest';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path="/all/interventions" element={<Interventionlist />} />
         <Route path="/intervention/details/:id" element={<GetIntervention/>} />
         <Route path="/change-password" element={<Cpassword />} />
+        <Route path="/result" element={<ResultInvest />} />
         
       </Routes>
     </Router>

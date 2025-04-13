@@ -4,8 +4,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import GroupIcon from '@mui/icons-material/Group';
 import DevicesIcon from '@mui/icons-material/Devices';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import axios from 'axios';
+import FolderIcon from '@mui/icons-material/Folder'; import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 const CsideMenu = () => {
@@ -76,14 +75,8 @@ const CsideMenu = () => {
 
                     <Link to="/equip" style={{ textDecoration: 'none' }}>
                         <li>
-                            <DevicesIcon className="icon" />
-                            <span>Équipements</span>
-                        </li>
-                    </Link>
-                    <Link to="/all/interventions" style={{ textDecoration: 'none' }}>
-                        <li>
-                            <AssignmentIcon className="icon" />
-                            <span>Interventions</span>
+                            <FolderIcon className="icon" />
+                            <span>Projets</span>
                         </li>
                     </Link>
                     <p className="title">SETTINGS</p>

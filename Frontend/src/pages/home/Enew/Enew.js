@@ -4,6 +4,8 @@ import Csidemenu from "../../../components/Csidemenu";
 import Cnavbar from "../../../components/Cnavbar";
 import './Enew.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const Enew = () => {
     const [username, setUsername] = useState('');
@@ -16,6 +18,7 @@ const Enew = () => {
     const [taux_actualisation, setTauxActualisation] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -57,19 +60,24 @@ const Enew = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8000/equipements/', material);
+            const response = await axios.post("http://localhost:8000/equipements/", material);
 
-            if (response.status === 200) {
-                setSuccess('Matériel ajouté avec succès');
-                setError('');
+            if (response.status === 201 && response.data.id) {
+                const id = response.data.id;
+                console.log("ID reçu du backend:", id);
+
+                // Naviguer vers la page ResultInvest avec l'ID dans le state
+                navigate('/result', { state: { projetId: id } });
             } else {
-                setSuccess('Matériel ajouté avec succès');
-                setSuccess('');
+                setError("Erreur lors de l'ajout du matériel.");
             }
         } catch (error) {
-            setError('Une erreur est survenue. Veuillez réessayer.');
+            console.error("Erreur lors de la requête:", error);
+            setError("Une erreur est survenue. Veuillez réessayer.");
         }
     };
+
+
 
     return (
         <div className="new">
