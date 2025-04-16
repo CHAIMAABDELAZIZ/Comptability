@@ -37,10 +37,7 @@ const Cnavbar = () => {
     return (
         <div className="navbar">
             <div className="wrapper">
-            <div className="search">
-            <SearchIcon className="searchIcon" />
-                    <input type="text" placeholder="Search Anything Here... " className="searchInput" />
-                </div>
+            
                 <div className="items">
                     <div className="item">
                     {username} 

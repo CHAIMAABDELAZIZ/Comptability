@@ -67,7 +67,7 @@ const Graph1 = () => {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Bar dataKey="investissement" fill="#8884d8" />
+                        <Bar dataKey="investissement" fill="#20396E" />
                     </BarChart>
                 </ResponsiveContainer>
             </div>

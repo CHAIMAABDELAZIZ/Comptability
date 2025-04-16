@@ -13,8 +13,9 @@
     padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-   
+    justify-content:end;
+    background-color: #E4EDF1;
+        /* Light background */
    
 }
 .navbar .wrapper .search {

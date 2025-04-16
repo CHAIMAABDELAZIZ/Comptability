@@ -43,9 +43,9 @@ const Cwidget = ({ type }) => {
         switch (type) {
             case "places":
                 setData({
-                    title: "Nombre Totale Des Equipements",
+                    title: "Nombre Totale Des Projets",
                     Number: totalEquipments,
-                    link1: "Voir tous les équipements",
+                    link1: "Voir tous les projets",
                     icon: (
                         <PersonOutlinedIcon
                             className="icon"

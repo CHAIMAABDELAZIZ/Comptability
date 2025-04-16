@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import './etable.css'
+import './etable.css';
 import EquipmentDetailsModal from '../EquipmentDetailsModal/Model';
 import AddIcon from '@mui/icons-material/Add';
-import { Link } from "react-router-dom";
-
+import { useNavigate, Link } from 'react-router-dom';
 
 const equipColumns = [
   { field: "id", headerName: "ID", width: 70 },
   { field: "nom_projet", headerName: "Nom du Projet", width: 200 },
-  { field: "investissement", headerName: "Investissement (€)", width: 150 },
+  { field: "description", headerName: "Description du Projet", width: 200 },
   { field: "date_debut", headerName: "Date de Début", width: 150 },
-  { field: "username", headerName: "Email", width: 200 },
+  { field: "investissement", headerName: "Investissement (€)", width: 150 },
+  {
+    field: "rentable",
+    headerName: "Rentable",
+    width: 130,
+    renderCell: (params) => (
+      <span style={{ color: params.value ? "green" : "red", fontWeight: "bold" }}>
+        {params.value ? "✅ Oui" : "❌ Non"}
+      </span>
+    ),
+  },
 ];
 
 const Etable = () => {
@@ -22,47 +31,43 @@ const Etable = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
 
-  // Fetch current username and role from local storage or backend
+  const navigate = useNavigate();
+
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
-        console.error('Utilisateur non authentifié.');
-        return;
+      console.error('Utilisateur non authentifié.');
+      return;
     }
 
     const fetchUserData = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8000/${userId}`);
-            setCurrentUsername(response.data.username);
-            setUserRole(response.data.role);
+      try {
+        const response = await axios.get(`http://localhost:8000/${userId}`);
+        setCurrentUsername(response.data.username);
+        setUserRole(response.data.role);
 
-            let equipResponse;
+        let equipResponse;
 
-            // Determine the endpoint based on role
-            if (response.data.role === 'admin') {
-                equipResponse = await axios.get('http://localhost:8000/equipements/all/equip');
-            } else {
-                equipResponse = await axios.get(`http://localhost:8000/equipements/user/${response.data.username}`);
-            }
-
-            setData(equipResponse.data);
-
-        } catch (err) {
-            console.error('Erreur lors de la récupération des données utilisateur:', err);
+        if (response.data.role === 'admin') {
+          equipResponse = await axios.get('http://localhost:8000/equipements/all/equip');
+        } else {
+          equipResponse = await axios.get(`http://localhost:8000/equipements/user/${response.data.username}`);
         }
+
+        setData(equipResponse.data);
+
+      } catch (err) {
+        console.error('Erreur lors de la récupération des données utilisateur:', err);
+      }
     };
 
     fetchUserData();
-}, []);
-
-
+  }, []);
 
   const handleSeeMore = (equipment) => {
-    setSelectedEquipment(equipment);
-    setOpenModal(true);
+    navigate('/result', { state: { projetId: equipment.id } });
   };
 
-  // Delete function
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:8000/equipements/${id}`, {
@@ -89,11 +94,6 @@ const Etable = () => {
           <div className='seemoreButton' onClick={() => handleSeeMore(params.row)}>
             voir plus
           </div>
-          <div className="viewButton">  
-            <Link to={`/equip/Emodifier/${params.row.id}`}>
-              Modifier    
-            </Link>                      
-          </div>
           <div className="deleteButton" onClick={() => handleDelete(params.row.id)}>
             Delete
           </div>
@@ -105,11 +105,11 @@ const Etable = () => {
   return (
     <div className='datatable'>
       <div className="datatableTitle">
-        la liste des Equipements
+        La liste des Projets
         <Link to="/equipments/new" className="link">
           <div className='addicon'>
             <AddIcon />
-            <span>Ajouter un Equipement</span>
+            <span>Ajouter un Projet</span>
           </div>
         </Link>
       </div>
@@ -117,15 +117,16 @@ const Etable = () => {
       <DataGrid
         rows={data.map(equipment => ({
           ...equipment,
-          username: equipment.username || currentUsername  // Ensure username is displayed
+          username: equipment.username || currentUsername,
+          rentable: equipment.van > 0, // calcul de rentabilité ici
         }))}
         columns={equipColumns.concat(actionColumn)}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
+            paginationModel: { page: 0, pageSize: 8 },
           },
         }}
-        pageSizeOptions={[5, 10]}
+        pageSizeOptions={[8, 10]}
         checkboxSelection
       />
 

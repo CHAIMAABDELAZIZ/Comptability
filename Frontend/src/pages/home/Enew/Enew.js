@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const Enew = () => {
     const [username, setUsername] = useState('');
     const [cashflows, setCashflows] = useState([]);
@@ -27,17 +28,20 @@ const Enew = () => {
             return;
         }
 
+
         const fetchUsername = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/${userId}`);
                 setUsername(response.data.username);
             } catch (err) {
-                setError('Erreur lors de la récupération du nom d’utilisateur.');
+                setError("Erreur lors de la récupération du nom d’utilisateur.");
             }
         };
 
+
         fetchUsername();
     }, []);
+
 
     const handleCashflowChange = (index, value) => {
         const updatedCashflows = [...cashflows];
@@ -45,8 +49,10 @@ const Enew = () => {
         setCashflows(updatedCashflows);
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
 
         const material = {
             username,
@@ -58,6 +64,7 @@ const Enew = () => {
             nom_projet,
             taux_actualisation,
         };
+
 
         try {
             const response = await axios.post("http://localhost:8000/equipements/", material);
@@ -77,8 +84,6 @@ const Enew = () => {
         }
     };
 
-
-
     return (
         <div className="new">
             <Csidemenu />
@@ -91,28 +96,28 @@ const Enew = () => {
                     <div className="right">
                         <form onSubmit={handleSubmit}>
                             <Grid container spacing={4.5}>
-                                {/* Champ pour username */}
-                                <Grid item xs={12} sm={6} required>
+                                {/* Username (readonly) */}
+                                <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth disabled>
                                         <InputLabel htmlFor="username">Nom d'utilisateur</InputLabel>
                                         <Input id="username" value={username} placeholder="Nom d'utilisateur" />
                                     </FormControl>
                                 </Grid>
 
-                                {/* Champ pour date_debut */}
+                                {/* Nom du projet */}
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
-                                        <InputLabel htmlFor="date_debut">Date de début</InputLabel>
+                                        <InputLabel htmlFor="nom_projet">Nom du projet</InputLabel>
                                         <Input
-                                            id="date_debut"
-                                            type="date"
-                                            value={date_debut}
-                                            onChange={(e) => setDateDebut(e.target.value)}
+                                            id="nom_projet"
+                                            value={nom_projet}
+                                            onChange={(e) => setNomProjet(e.target.value)}
+                                            placeholder="Nom du projet"
                                         />
                                     </FormControl>
                                 </Grid>
 
-                                {/* Champ pour description */}
+                                {/* Description */}
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel htmlFor="description">Description</InputLabel>
@@ -126,12 +131,30 @@ const Enew = () => {
                                 </Grid>
 
 
+                                {/* Date de début */}
+                                <Grid item xs={12} sm={6}>
+                                    <FormControl fullWidth required>
+                                        <InputLabel shrink htmlFor="date_debut">Date de début</InputLabel>
+                                        <Input
+                                            id="date_debut"
+                                            type="date"
+                                            value={date_debut}
+                                            onChange={(e) => setDateDebut(e.target.value)}
+                                        />
+                                    </FormControl>
+                                </Grid>
 
+
+
+
+
+                                {/* Durée */}
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel htmlFor="duree">Durée</InputLabel>
                                         <Input
                                             id="duree"
+                                            type="number"
                                             value={duree}
                                             onChange={(e) => setDuree(e.target.value)}
                                             placeholder="Durée"
@@ -139,11 +162,14 @@ const Enew = () => {
                                     </FormControl>
                                 </Grid>
 
+
+                                {/* Investissement */}
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel htmlFor="investissement">Investissement</InputLabel>
                                         <Input
                                             id="investissement"
+                                            type="number"
                                             value={investissement}
                                             onChange={(e) => setInvestissement(e.target.value)}
                                             placeholder="Investissement"
@@ -152,11 +178,13 @@ const Enew = () => {
                                 </Grid>
 
 
+                                {/* Taux d'actualisation */}
                                 <Grid item xs={12} sm={6}>
                                     <FormControl fullWidth required>
                                         <InputLabel htmlFor="taux_actualisation">Taux d'actualisation</InputLabel>
                                         <Input
                                             id="taux_actualisation"
+                                            type="number"
                                             value={taux_actualisation}
                                             onChange={(e) => setTauxActualisation(e.target.value)}
                                             placeholder="Taux d'actualisation"
@@ -164,27 +192,18 @@ const Enew = () => {
                                     </FormControl>
                                 </Grid>
 
-                           
 
-                                <Grid item xs={12} sm={6}>
-                                    <FormControl fullWidth required>
-                                        <InputLabel htmlFor="nom_projet">Nom du projet</InputLabel>
-                                        <Input
-                                            id="nom_projet"
-                                            value={nom_projet}
-                                            onChange={(e) => setNomProjet(e.target.value)}
-                                            placeholder="Nom du projet"
-                                        />
-                                    </FormControl>
-                                </Grid>
 
-                                {/* Champs pour entrer les cashflows en fonction de la durée */}
-                                {Array.from({ length: parseInt(duree) }).map((_, index) => (
+
+
+                                {/* Cashflows */}
+                                {Array.from({ length: parseInt(duree) || 0 }).map((_, index) => (
                                     <Grid item xs={12} sm={6} key={index}>
                                         <FormControl fullWidth required>
-                                            <InputLabel htmlFor={`cashflow-${index}`}>Cashflow {index + 1}</InputLabel>
+                                            <InputLabel htmlFor={`cashflow-${index}`}>{`Cashflow ${index + 1}`}</InputLabel>
                                             <Input
                                                 id={`cashflow-${index}`}
+                                                type="number"
                                                 value={cashflows[index] || ''}
                                                 onChange={(e) => handleCashflowChange(index, e.target.value)}
                                                 placeholder={`Cashflow ${index + 1}`}
@@ -193,15 +212,21 @@ const Enew = () => {
                                     </Grid>
                                 ))}
 
+
                                 {/* Bouton de soumission */}
-                                <Grid container justifyContent="flex-end">
+                                <Grid container justifyContent="flex-end" sx={{ marginTop: 2 }}>
                                     <Grid item>
-                                        <Button variant="contained" type="submit" style={{ backgroundColor: '#4caf50', color: '#fff' }}>
+                                        <Button
+                                            variant="contained"
+                                            type="submit"
+                                            style={{ backgroundColor: '#4caf50', color: '#fff' }}
+                                        >
                                             Ajouter
                                         </Button>
                                     </Grid>
                                 </Grid>
                             </Grid>
+
 
                             {error && <p className="error">{error}</p>}
                             {success && <p className="success">{success}</p>}
@@ -213,4 +238,8 @@ const Enew = () => {
     );
 };
 
+
 export default Enew;
+
+
+
